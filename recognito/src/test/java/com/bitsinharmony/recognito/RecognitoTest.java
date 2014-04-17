@@ -91,11 +91,11 @@ public class RecognitoTest {
             vp5.getDistance((DistanceCalculator) any, (VocalPrint) any); result = 1.0D;
         }};
         
-        List<String> keys = recognito.recognize(vocalSample, DEFAULT_SAMPLE_RATE);
+        List<Match<String>> keys = recognito.recognize(vocalSample, DEFAULT_SAMPLE_RATE);
 
-        assertThat(keys.get(0), is(equalTo("5")));
-        assertThat(keys.get(1), is(equalTo("4"))); 
-        assertThat(keys.get(2), is(equalTo("3")));
+        assertThat(keys.get(0).getUserKey(), is(equalTo("5")));
+        assertThat(keys.get(1).getUserKey(), is(equalTo("4"))); 
+        assertThat(keys.get(2).getUserKey(), is(equalTo("3")));
         assertThat(keys.size(), is(equalTo(3)));
     }
     
@@ -110,10 +110,10 @@ public class RecognitoTest {
             vp2.getDistance((DistanceCalculator) any, (VocalPrint) any); result = 4.0D;
         }};
         
-        List<String> keys = recognito.recognize(vocalSample, DEFAULT_SAMPLE_RATE);
+        List<Match<String>> keys = recognito.recognize(vocalSample, DEFAULT_SAMPLE_RATE);
 
-        assertThat(keys.get(0), is(equalTo("2")));
-        assertThat(keys.get(1), is(equalTo("1"))); 
+        assertThat(keys.get(0).getUserKey(), is(equalTo("2")));
+        assertThat(keys.get(1).getUserKey(), is(equalTo("1"))); 
         assertThat(keys.size(), is(equalTo(2)));
     }
 

@@ -204,7 +204,7 @@ public class Recognito<K> {
      * @param sampleRate the sample rate
      * @return a list of user keys that might match this vocal sample
      */
-    public List<K> recognize(double[] vocalSample, float sampleRate) {
+    public List<Match<K>> recognize(double[] vocalSample, float sampleRate) {
 
         VocalPrint vocalPrint = new VocalPrint(extractFeatures(vocalSample, sampleRate));
         
@@ -216,10 +216,10 @@ public class Recognito<K> {
             results.put(distance, entry.getKey());
         }
         
-        List<K> returnValue = new ArrayList<K>();
+        List<Match<K>> returnValue = new ArrayList<Match<K>>();
         int i = 0;
         for(Entry<Double, K> entry : results.entrySet()) {
-            returnValue.add(entry.getValue());
+            returnValue.add(new Match<K>(entry.getKey(), entry.getValue()));
             if(++i == 3) {
                 break;
             }
@@ -238,7 +238,7 @@ public class Recognito<K> {
      * @throws IOException when an I/O exception occurs
      * @see Recognito#recognize(double[], float)
      */
-    public  List<K> recognize(File vocalSampleFile) 
+    public  List<Match<K>> recognize(File vocalSampleFile) 
             throws UnsupportedAudioFileException, IOException {
         
         AudioInputStream sample = AudioSystem.getAudioInputStream(vocalSampleFile);
